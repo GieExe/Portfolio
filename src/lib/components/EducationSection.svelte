@@ -2,55 +2,75 @@
   let { education } = $props();
 </script>
 
-<section class="mb-6">
-  <h2 class="section-title">Education</h2>
-  <ul class="edu-list">
-    {#each education as item}
-      <li><strong>{item.level}:</strong> {item.school}</li>
-    {/each}
-  </ul>
-</section>
+<div class="edu-grid">
+  {#each education as item, i}
+    <div class="edu-card">
+      <span class="edu-level">{item.level}</span>
+      <span class="edu-school">{item.school}</span>
+    </div>
+  {/each}
+</div>
 
 <style>
-  .section-title {
-    border-bottom: 2px solid #e0e0e0;
-    padding-bottom: 0.9rem;
-    margin-bottom: 2.5rem;
-    color: #2c3e50;
-    font-size: 2.2rem;
-    font-weight: 700;
-    letter-spacing: 0.03em;
+  .edu-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0.75rem;
+  }
+
+  .edu-card {
+    background: var(--bg-card);
+    border: 1px solid var(--border-light);
+    border-radius: 8px;
+    padding: 1rem 1.2rem;
+    transition: border-color 0.25s var(--ease-out), box-shadow 0.25s var(--ease-out);
+  }
+
+  .edu-card:hover {
+    border-color: var(--accent-soft);
+    box-shadow: 0 2px 12px rgba(196, 85, 61, 0.06);
+  }
+
+  .edu-level {
+    display: block;
+    font-family: var(--font-mono);
+    font-size: 0.7rem;
     text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--text-muted);
+    margin-bottom: 0.3rem;
   }
 
-  .edu-list {
-    list-style: disc;
-    padding-left: 2rem;
-  }
-
-  .edu-list li {
-    margin-bottom: 0.7rem;
-    color: #4a5568;
-    line-height: 1.7;
-    font-size: 1rem;
+  .edu-school {
+    display: block;
+    font-family: var(--font-heading);
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: var(--text-primary);
+    line-height: 1.35;
   }
 
   @media (max-width: 768px) {
-    .section-title {
-      font-size: 1.75rem;
-      margin-bottom: 1.5rem;
+    .edu-grid {
+      grid-template-columns: 1fr;
     }
   }
 
   @media print {
-    .section-title {
-      font-size: 1.3rem;
-      margin-bottom: 1.2rem;
-      padding-bottom: 0.4rem;
+    .edu-grid {
+      gap: 0.4rem;
     }
-    .edu-list li {
+    .edu-card {
+      padding: 0.5rem 0.8rem;
+      border: none;
+      border-bottom: 1px solid var(--border);
+      border-radius: 0;
+    }
+    .edu-level {
+      font-size: 0.6rem;
+    }
+    .edu-school {
       font-size: 0.8rem;
-      line-height: 1.3;
     }
   }
 </style>

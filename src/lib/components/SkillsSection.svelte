@@ -1,109 +1,109 @@
 <script>
   let { skills } = $props();
+
+  const categories = $derived([
+    { label: 'Languages & Frameworks', items: skills.technical, color: 'accent' },
+    { label: 'Tools', items: skills.tools, color: 'sage' },
+    { label: 'Soft Skills', items: skills.soft, color: 'accent' },
+    { label: 'Additional', items: skills.additional, color: 'sage' }
+  ]);
 </script>
 
-<section class="mb-6">
-  <h2 class="section-title">Skills</h2>
-  <div class="skills-grid">
-    <div>
-      <span class="skill-category">Technical Skills:</span>
-      <ul class="skill-list">
-        {#each skills.technical as skill}
-          <li>{skill}</li>
+<div class="skills-container">
+  {#each categories as cat}
+    <div class="skill-group">
+      <span class="skill-label">{cat.label}</span>
+      <div class="skill-tags">
+        {#each cat.items as skill}
+          <span class="tag tag--{cat.color}">{skill}</span>
         {/each}
-      </ul>
+      </div>
     </div>
-    <div>
-      <span class="skill-category">Soft Skills:</span>
-      <ul class="skill-list">
-        {#each skills.soft as skill}
-          <li>{skill}</li>
-        {/each}
-      </ul>
-    </div>
-    <div>
-      <span class="skill-category">Tools:</span>
-      <ul class="skill-list">
-        {#each skills.tools as skill}
-          <li>{skill}</li>
-        {/each}
-      </ul>
-    </div>
-    <div>
-      <span class="skill-category">Additional Skills:</span>
-      <ul class="skill-list">
-        {#each skills.additional as skill}
-          <li>{skill}</li>
-        {/each}
-      </ul>
-    </div>
-  </div>
-</section>
+  {/each}
+</div>
 
 <style>
-  .section-title {
-    border-bottom: 2px solid #e0e0e0;
-    padding-bottom: 0.9rem;
-    margin-bottom: 2.5rem;
-    color: #2c3e50;
-    font-size: 2.2rem;
-    font-weight: 700;
-    letter-spacing: 0.03em;
+  .skills-container {
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+  }
+
+  .skill-group {
+    display: flex;
+    align-items: flex-start;
+    gap: 1rem;
+  }
+
+  .skill-label {
+    font-family: var(--font-mono);
+    font-size: 0.7rem;
     text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--text-muted);
+    min-width: 140px;
+    padding-top: 0.45rem;
+    flex-shrink: 0;
   }
 
-  .skills-grid {
-    display: grid;
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: 0.75rem 1.5rem;
+  .skill-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4rem;
   }
 
-  .skill-category {
-    font-weight: 700;
-    color: #2c3e50;
-    margin-bottom: 0.8rem;
-    display: block;
-    font-size: 1.2rem;
+  .tag {
+    font-family: var(--font-body);
+    font-size: 0.82rem;
+    font-weight: 500;
+    padding: 0.35rem 0.85rem;
+    border-radius: 100px;
+    transition: all 0.2s var(--ease-out);
+    cursor: default;
   }
 
-  .skill-list {
-    list-style: disc;
-    padding-left: 2rem;
+  .tag--accent {
+    background: var(--accent-soft);
+    color: var(--accent);
+    border: 1px solid transparent;
   }
 
-  .skill-list li {
-    margin-bottom: 0.5rem;
-    color: #4a5568;
-    line-height: 1.7;
-    font-size: 1rem;
+  .tag--accent:hover {
+    background: var(--accent);
+    color: #fff;
+  }
+
+  .tag--sage {
+    background: var(--sage-soft);
+    color: var(--sage);
+    border: 1px solid transparent;
+  }
+
+  .tag--sage:hover {
+    background: var(--sage);
+    color: #fff;
   }
 
   @media (max-width: 768px) {
-    .section-title {
-      font-size: 1.75rem;
-      margin-bottom: 1.5rem;
+    .skill-group {
+      flex-direction: column;
+      gap: 0.4rem;
     }
 
-    .skills-grid {
-      grid-template-columns: 1fr;
+    .skill-label {
+      min-width: unset;
+      padding-top: 0;
     }
   }
 
   @media print {
-    .section-title {
-      font-size: 1.3rem;
-      margin-bottom: 1.2rem;
-      padding-bottom: 0.4rem;
+    .skill-label {
+      font-size: 0.6rem;
+      min-width: 100px;
     }
-
-    .skill-category {
-      font-size: 1rem;
-      margin-bottom: 0.5rem;
-    }
-
-    .skill-list li {
-      font-size: 0.8rem;
-      line-height: 1.3;
+    .tag {
+      font-size: 0.7rem;
+      padding: 0.2rem 0.5rem;
     }
   }
 </style>

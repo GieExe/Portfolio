@@ -1,27 +1,97 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+/* ============================================
+   CUSTOM DESIGN SYSTEM
+   Warm editorial style — no generic defaults
+   ============================================ */
+
+*,
+*::before,
+*::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
 
 :root {
-  --bg-page: #eef2f6;
-  --color-sidebar: #2c3e50;
-  --color-sidebar-text: #ecf0f1;
-  --color-sidebar-link: #85c1e9;
-  --color-sidebar-link-hover: #5fa2dd;
-  --color-accent: #5fa2dd;
-  --color-body-text: #4a5568;
-  --color-section-border: #e0e0e0;
+  /* Color palette — warm & grounded */
+  --bg-page: #faf8f4;
+  --bg-card: #ffffff;
+  --bg-soft: #f3efe8;
+  --text-primary: #1c1c1e;
+  --text-body: #3d3a36;
+  --text-muted: #8a8580;
+  --text-light: #b5b0aa;
+  --accent: #c4553d;
+  --accent-soft: #e8d5cf;
+  --accent-hover: #a8432e;
+  --sage: #6b7f6b;
+  --sage-soft: #dce6dc;
+  --border: #e8e4de;
+  --border-light: #f0ece6;
+
+  /* Typography */
+  --font-heading: 'Space Grotesk', sans-serif;
+  --font-body: 'DM Sans', sans-serif;
+  --font-mono: 'JetBrains Mono', monospace;
+
+  /* Spacing */
+  --space-xs: 0.25rem;
+  --space-sm: 0.5rem;
+  --space-md: 1rem;
+  --space-lg: 1.5rem;
+  --space-xl: 2.5rem;
+  --space-2xl: 4rem;
+  --space-3xl: 6rem;
+
+  /* Transitions */
+  --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+html {
+  font-size: 16px;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
 body {
-  font-family: 'Inter', sans-serif;
+  font-family: var(--font-body);
   background-color: var(--bg-page);
-  display: flex;
-  justify-content: center;
-  align-items: flex-start;
+  color: var(--text-body);
+  line-height: 1.65;
   min-height: 100vh;
-  padding: 3rem 1.5rem;
+  padding: 0;
   margin: 0;
+}
+
+/* Subtle grain texture */
+body::before {
+  content: '';
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0.025;
+  pointer-events: none;
+  z-index: 9999;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+  background-repeat: repeat;
+  background-size: 256px 256px;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-heading);
+  color: var(--text-primary);
+  line-height: 1.2;
+}
+
+a {
+  color: var(--accent);
+  text-decoration: none;
+  transition: color 0.2s var(--ease-out);
+}
+
+a:hover {
+  color: var(--accent-hover);
 }
 
 /* Print styles */
@@ -32,5 +102,15 @@ body {
     margin: 0;
     -webkit-print-color-adjust: exact;
     print-color-adjust: exact;
+    font-size: 11px;
+  }
+
+  body::before {
+    display: none;
+  }
+
+  @page {
+    margin: 1.5cm;
+    size: A4;
   }
 }
